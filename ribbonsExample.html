@@ -1,0 +1,430 @@
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+  <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script> 
+  <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.1.min.js"></script>
+  <script src="ribbons.js"></script>
+
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css" type="text/css" media="all" />
+  <style>
+    #controls {
+        width: 300px;
+        float: left;
+    }
+    #containers {
+        position: relative;
+        width: 800px;
+        float: right;
+    }
+    #first {
+      position: relative;
+      margin: 20px;
+      width: 600px;
+      height: 300px;
+      border: 1px solid black;
+    }
+
+    #other {
+      position: relative;
+      margin: 20px;
+      width: 600px;
+      height: 300px;
+      border: 1px solid black;
+    }
+    .slider {
+      width: 200px;
+      height: 10px;
+    }
+    .ui-slider-handle {
+      height:1.0em !important;
+      width:1.0em !important;
+    }
+    p {
+        margin: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="controls">
+      <button id="start">start</button>
+      <button id="stop">stop</button>
+      <br>
+      <button id="goLeft">go left</button>
+      <button id="goRight">go right</button>
+      <br>
+      <p>Easings<p>
+      <select id="easings">
+          <option value=0>BackEaseIn</option>
+          <option value=1>BackEaseInOut</option>
+          <option value=2>BackEaseOut</option>
+          <option value=3>BounceEaseIn</option>
+          <option value=4>BounceEaseInOut</option>
+          <option value=5>BounceEaseOut</option>
+          <option value=6>EaseIn</option>
+          <option value=7>EaseInOut</option>
+          <option value=8>EaseOut</option>
+          <option value=9>ElasticEaseIn</option>
+          <option value=10>ElasticEaseInOut</option>
+          <option value=11>ElasticEaseOut</option>
+          <option value=12>Linear</option>
+          <option value=13>StrongEaseIn</option>
+          <option value=14>StrongEaseInOut</option>
+          <option value=15>StrongEaseOut</option>
+      </select>
+      <p>ColorR:<p> <div class="slider" id="colorR"></div>
+      <p>ColorG:<p> <div class="slider" id="colorG"></div>
+      <p>ColorB:<p> <div class="slider" id="colorB"></div>
+      <p>ColorSigma:<p> <div class="slider" id="colorSigma"></div>
+      <p>width:<p> <div class="slider" id="width"></div>
+      <p>widthSigma:<p> <div class="slider" id="widthSigma"></div>
+      <p>height:<p> <div class="slider" id="height"></div>
+      <p>heightSigma:<p> <div class="slider" id="heightSigma"></div>
+      <p>opacity:<p> <div class="slider" id="opacity"></div>
+      <p>speed:<p> <div class="slider" id="speed"></div>
+      <p>frequency:<p> <div class="slider" id="frequency"></div>
+      <p>strokeColor (rgb):<p>
+      <div class="slider" id="strokeColorR"></div>
+      <div class="slider" id="strokeColorG"></div>
+      <div class="slider" id="strokeColorB"></div>
+      <p>strokeWidth:<p> <div class="slider" id="strokeWidth"></div>
+      <p>borderRadius:<p> <div class="slider" id="borderRadius"></div>
+      <p> <em>cat transitions!</em> </p>
+      <button id="catLeft">cat left</button>
+      <button id="catRight">cat right</button>
+  </div>
+  <div id="containers">
+      <div id="first"> im a div that can be ribboned </div>
+      <div id="other"> im another one with cats! </div>
+  </div>
+
+  <script>
+
+
+      $('#start').click(function() {
+           Ribbons.setElement("#first");
+           Ribbons.startRibbons();
+      });
+
+      $('#stop').click(function() {
+           Ribbons.stopRibbons();
+      });
+
+      $('#goLeft').click(function() {
+           Ribbons.ribbonDirection = "left";
+      });
+
+      $('#goRight').click(function() {
+           Ribbons.ribbonDirection = "right";
+      });
+
+      $('#easings').change(function() {
+          switch (parseInt($('#easings').val())) {
+              case 0:
+                  Ribbons.easing = Kinetic.Easings.BackEaseIn;
+                  break;
+              case 1:
+                  Ribbons.easing = Kinetic.Easings.BackEaseInOut;
+                  break;
+              case 2:
+                  Ribbons.easing = Kinetic.Easings.BackEaseOut;
+                  break;
+              case 3:
+                  Ribbons.easing = Kinetic.Easings.BounceEaseIn;
+                  break;
+              case 4:
+                  Ribbons.easing = Kinetic.Easings.BounceEaseInOut;
+                  break;
+              case 5:
+                  Ribbons.easing = Kinetic.Easings.BounceEaseOut;
+                  break;
+              case 6:
+                  Ribbons.easing = Kinetic.Easings.EaseIn;
+                  break;
+              case 7:
+                  Ribbons.easing = Kinetic.Easings.EaseInOut;
+                  break;
+              case 8:
+                  Ribbons.easing = Kinetic.Easings.EaseOut;
+                  break;
+              case 9:
+                  Ribbons.easing = Kinetic.Easings.ElasticEaseIn;
+                  break;
+              case 10:
+                  Ribbons.easing = Kinetic.Easings.ElasticeEaseInOut;
+                  break;
+              case 11:
+                  Ribbons.easing = Kinetic.Easings.ElasticeEaseOut;
+                  break;
+              case 12:
+                  Ribbons.easing = Kinetic.Easings.Linear;
+                  break;
+              case 13:
+                  Ribbons.easing = Kinetic.Easings.StrongEaseIn;
+                  break;
+              case 14:
+                  Ribbons.easing = Kinetic.Easings.StrongEaseInOut;
+                  break;
+              case 15:
+                  Ribbons.easing = Kinetic.Easings.StrongEaseOut;
+                  break;
+              default:
+                  console.log('default');
+                  break;
+          }
+      });
+
+      $("#colorR").slider({
+          min: 0,
+          max: 255,
+          step: 1,
+          slide: function( event, ui ) {
+              Ribbons.ribbonColorR = ui.value;
+          }
+      })
+
+      $("#colorG").slider({
+          min: 0,
+          max: 255,
+          step: 1,
+          slide: function( event, ui ) {
+              Ribbons.ribbonColorG = ui.value;
+          }
+      })
+
+      $("#colorB").slider({
+          min: 0,
+          max: 255,
+          step: 1,
+          slide: function( event, ui ) {
+              Ribbons.ribbonColorB = ui.value;
+          }
+      })
+
+      $("#colorSigma").slider({
+          min: 0,
+          max: 255,
+          step: 1,
+          slide: function( event, ui ) {
+              Ribbons.colorSigma = ui.value;
+          }
+      })
+
+      $("#width").slider({
+          min: 1,
+          max: 1000,
+          step: 1,
+          slide: function( event, ui ) {
+              Ribbons.ribbonWidth = ui.value;
+          }
+      })
+
+      $("#widthSigma").slider({
+          min: 0,
+          max: 50,
+          step: 1,
+          slide: function( event, ui ) {
+              Ribbons.ribbonWidthSigma = ui.value;
+          }
+      })
+
+      $("#height").slider({
+          min: 1,
+          max: 300,
+          step: 1,
+          slide: function( event, ui ) {
+              Ribbons.ribbonHeight = ui.value;
+          }
+      })
+
+      $("#heightSigma").slider({
+          min: 0,
+          max: 50,
+          step: 1,
+          slide: function( event, ui ) {
+              Ribbons.ribbonHeightSigma = ui.value;
+          }
+      })
+
+      $("#opacity").slider({
+          min: 0.01,
+          max: 1.0,
+          step: 0.01,
+          slide: function( event, ui ) {
+              Ribbons.ribbonOpacity = ui.value;
+          }
+      })
+
+      $("#speed").slider({
+          min: .05,
+          max: 6,
+          step: .05,
+          slide: function( event, ui ) {
+              Ribbons.ribbonSpeed = 1.0 / ui.value;
+          }
+      })
+
+      function rgbToHex(r, g, b) {
+          return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+      }
+
+      function setStrokeColor() {
+          var r = $("#strokeColorR").slider("option", "value");
+          var g = $("#strokeColorG").slider("option", "value");
+          var b = $("#strokeColorB").slider("option", "value");
+          Ribbons.ribbonStrokeColor = rgbToHex(r,g,b);
+      }
+
+      $("#strokeColorR").slider({
+          min: 0,
+          max: 255,
+          step: 1,
+          slide: function( event, ui ) {
+              setStrokeColor();
+          }
+      })
+      $("#strokeColorG").slider({
+          min: 0,
+          max: 255,
+          step: 1,
+          slide: function( event, ui ) {
+              setStrokeColor();
+          }
+      })
+      $("#strokeColorB").slider({
+          min: 0,
+          max: 255,
+          step: 1,
+          slide: function( event, ui ) {
+              setStrokeColor();
+          }
+      })
+
+      $("#strokeWidth").slider({
+          min: 0,
+          max: 20,
+          step: 1,
+          slide: function( event, ui ) {
+              Ribbons.ribbonStrokeWidth = ui.value;
+          }
+      })
+
+      $("#borderRadius").slider({
+          min: 0,
+          max: 50,
+          step: 1,
+          slide: function( event, ui ) {
+              Ribbons.ribbonBorderRadius = ui.value;
+          }
+      })
+
+      $("#frequency").slider({
+          min: 0.0,
+          max: 1.0,
+          step: .01,
+          slide: function( event, ui ) {
+              Ribbons.ribbonFrequency = ui.value;
+          }
+      })
+
+      var catImages = [
+          "http://25.media.tumblr.com/tumblr_m8dxt0YaUe1qmbg8bo1_500.jpg",
+          "http://24.media.tumblr.com/tumblr_lg6z0aN2ds1qzbxjgo1_500.jpg",
+          "http://25.media.tumblr.com/tumblr_m16ykv2OeJ1qh66wqo1_500.jpg",
+          "http://25.media.tumblr.com/tumblr_ma9b8rnlIg1ryvmmzo1_500.gif",
+      ]
+
+      var catCounter = 0;
+
+      function setCatImage() {
+          catCounter = ++catCounter%4;
+          var img = $('<img id="catImg">');
+          img.attr('src', catImages[catCounter]);
+          img.css({
+              'width': '100%',
+              'height': '100%'
+          }),
+          $('#other').html(img);
+      }
+
+
+      Ribbons.initWithOptions({
+          selector: "#other",
+          curtainColor: "white"
+      });
+
+      
+      $("#colorR").slider('value', Ribbons.ribbonColorR);
+      $("#colorG").slider('value', Ribbons.ribbonColorG);
+      $("#colorB").slider('value', Ribbons.ribbonColorB);
+      //$("#colorSigma").slider('value', Ribbons.ribbonColorSigma);
+      $("#width").slider('value', Ribbons.ribbonWidth);
+      $("#widthSigma").slider('value', Ribbons.ribbonWidthSigma);
+      $("#height").slider('value', Ribbons.ribbonHeight);
+      $("#heightSigma").slider('value', Ribbons.ribbonHeightSigma);
+      $("#opacity").slider('value', Ribbons.ribbonOpacity);
+      $("#speed").slider('value', Ribbons.ribbonSpeed);
+      $("#strokeWidth").slider('value', Ribbons.ribbonStrokeWidth);
+      //$("#borderRadius").slider('value', Ribbons.borderRadius);
+      $("#frequency").slider('value', Ribbons.ribbonFrequency);
+
+
+      function swapCatRight() {
+          Ribbons.setElement("#other");
+          Ribbons.randomizeColorMus();
+          $("#colorR").slider('value', Ribbons.ribbonColorR);
+          $("#colorG").slider('value', Ribbons.ribbonColorG);
+          $("#colorB").slider('value', Ribbons.ribbonColorB);
+          Ribbons.ribbonDirection = "right";
+          $(Ribbons).on('curtain:Center', function() {
+              setCatImage();
+              Ribbons.stopRibbons();
+              Ribbons.curtainToRight(function() {
+                  $(Ribbons).off('curtain:Center');
+              });
+          });
+          Ribbons.ribbonFrequency = 1;
+          Ribbons.startRibbons();
+          Ribbons.curtainSetLeft();
+          setTimeout(function() {
+              Ribbons.curtainToCenter();
+          }, 500);
+      }
+
+      function swapCatLeft() {
+          Ribbons.setElement("#other");
+          Ribbons.randomizeColorMus();
+          $("#colorR").slider('value', Ribbons.ribbonColorR);
+          $("#colorG").slider('value', Ribbons.ribbonColorG);
+          $("#colorB").slider('value', Ribbons.ribbonColorB);
+          Ribbons.ribbonDirection = "left";
+          $(Ribbons).on('curtain:Center', function() {
+              setCatImage();
+              Ribbons.stopRibbons();
+              Ribbons.curtainToLeft(function() {
+                  $(Ribbons).off('curtain:Center');
+              });
+          });
+          Ribbons.ribbonFrequency = 1;
+          Ribbons.startRibbons();
+          Ribbons.curtainSetRight();
+          setTimeout(function() {
+              Ribbons.curtainToCenter();
+          }, 500);
+      }
+
+      $("#catLeft").click(function() {
+          swapCatLeft();
+      });
+
+      $("#catRight").click(function() {
+          swapCatRight();
+      });
+
+  </script>
+</body>
+</html> 
+

@@ -38,27 +38,6 @@ var Ribbons = (function ( $, Kinetic, window ) {
             this.zIndex = options.zIndex || 1000,
 
             this.setElement(options.selector);
-
-            // events
-            $(this).on('curtain:Left', function() {
-                console.log("curtain is left");
-            });
-
-            $(this).on('curtain:Center', function() {
-                console.log("curtain is center");
-            });
-
-            $(this).on('curtain:Right', function() {
-                console.log("curtain is right");
-            });
-
-            $(this).on('ribbons:Started', function() {
-                console.log("ribbons started");
-            });
-
-            $(this).on('ribbons:Stopped', function() {
-                console.log("ribbons stopped");
-            });
         },
 
 

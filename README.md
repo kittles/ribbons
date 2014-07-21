@@ -11,7 +11,7 @@ Ribbons stream across an element of your choosing!
 Initialize with:
 ```javascript
 Ribbons.initWithOptions({
-    element: <some jQuery selector>,
+    element: "#coolDiv",
     // other config options
 });
 ```
@@ -19,7 +19,7 @@ Start ribbons with `Ribbons.startRibbons();`
 
 Stop ribbons with `Ribbons.stopRibbons();`
 
-Change element ribbons are attached to with `Ribbons.setElement(<some other jQuery selector>);`
+Change element ribbons are attached to with `Ribbons.setElement("#newThing");`
 
 Use the following methods to move the "curtain", which fully covers the element
 * `Ribbons.curtainSetLeft()`

@@ -37,4 +37,4 @@ The Ribbons object also emits the following events:
 * `'ribbons:Ended'`
 
 ## Discussion
-This puts a transparent canvas over whatever element you specify, and draws "ribbons" streaming across it. Depends on jQuery and the Kinetic.js framework. Clone and open the ribbonsExample.html to see how changing parameters affects the ribbons.
+This puts a transparent canvas over whatever element you specify, and draws "ribbons" streaming across it. Depends on jQuery and the Kinetic.js framework. Clone and open the ribbonsExample.html to see how changing parameters affects the ribbons. The element you specify must be position: relative.

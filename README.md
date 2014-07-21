@@ -3,7 +3,7 @@ ribbons
 
 Ribbons stream across an element of your choosing!
 
-## usage
+## Usage
 
 Initialize with:
 ```javascript
@@ -18,5 +18,5 @@ Stop ribbons with `Ribbons.stopRibbons();`
 
 Change element ribbons are attached to with `Ribbons.setElement(<some other jquery selector>);`
 
-## discussion
+## Discussion
 This puts a transparent canvas over whatever element you specify, and draws "ribbons" streaming across it. Depends on jQuery and the Kinetic.js framework. Clone and open the ribbonsExample.html to see how changing parameters affects the ribbons.

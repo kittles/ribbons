@@ -1,7 +1,5 @@
-;"use strict";
-
 var Ribbons = (function ( $, Kinetic, window ) {
-
+    'use strict';
     var _ribbonCount = 0;
     var _ribbonsAreRunning = false;
     var _ribbonTimerID = -1;
@@ -25,7 +23,7 @@ var Ribbons = (function ( $, Kinetic, window ) {
             this.ribbonHeightSigma = options.ribbonHeightSigma || 14,
             this.ribbonOpacity = options.ribbonOpacity || 1.0,
             this.ribbonSpeed = options.ribbonSpeed || 1.0,
-            this.ribbonFrequency = options.ribbonFrequency || .2,
+            this.ribbonFrequency = options.ribbonFrequency || 0.2,
             this.ribbonStrokeColor = options.ribbonStrokeColor || 'black',
             this.ribbonStrokeWidth = options.ribbonStrokeWidth || 0,
             this.ribbonBorderRadius = options.ribbonBorderRadius || 0,
@@ -103,9 +101,9 @@ var Ribbons = (function ( $, Kinetic, window ) {
 
 
         isClear: function() {
-            if (!this._ribbonsAreRunning && this._ribbonCount == 0) {
+            if (!this._ribbonsAreRunning && this._ribbonCount === 0) {
                 return true;
-            };
+            }
             return false;
         },
 
@@ -190,7 +188,9 @@ var Ribbons = (function ( $, Kinetic, window ) {
             var dist = Math.sqrt(-1 * Math.log(Math.random()));
             var angle = 2 * Math.PI * Math.random();
             var res = Math.floor(dist*Math.sin(angle) * sigma + mean);
-            if (res < 0) return 0;
+            if (res < 0) {
+                return 0;
+            }
             return res;
         },
         
@@ -198,8 +198,12 @@ var Ribbons = (function ( $, Kinetic, window ) {
             var dist = Math.sqrt(-1 * Math.log(Math.random()));
             var angle = 2 * Math.PI * Math.random();
             var res = Math.floor(dist*Math.sin(angle) * sigma + mean);
-            if (res < 0) return 0;
-            if (res > 255) return 255;
+            if (res < 0) {
+                return 0;
+            }
+            if (res > 255) {
+                return 255;
+            }
             return res;
         },
 
@@ -226,13 +230,17 @@ var Ribbons = (function ( $, Kinetic, window ) {
 
             var sampledWidth = this.randomSample(this.ribbonWidth, this.ribbonWidthSigma);
             var sampledHeight = this.randomSample(this.ribbonHeight, this.ribbonHeightSigma);
+
+            var ribbonStartX;
+            var ribbonTweenX;
+            
             // handle direction
-            if (this.ribbonDirection == "right") {
-                var ribbonStartX = -1 * (sampledWidth + this.ribbonStrokeWidth);
-                var ribbonTweenX = ribbonStartX + sampledWidth + this.containerWidth + this.ribbonStrokeWidth;
+            if (this.ribbonDirection === "right") {
+                ribbonStartX = -1 * (sampledWidth + this.ribbonStrokeWidth);
+                ribbonTweenX = ribbonStartX + sampledWidth + this.containerWidth + this.ribbonStrokeWidth;
             } else {
-                var ribbonStartX = sampledWidth + this.ribbonStrokeWidth + this.containerWidth;
-                var ribbonTweenX = ribbonStartX - (2 * sampledWidth) - this.containerWidth - this.ribbonStrokeWidth;
+                ribbonStartX = sampledWidth + this.ribbonStrokeWidth + this.containerWidth;
+                ribbonTweenX = ribbonStartX - (2 * sampledWidth) - this.containerWidth - this.ribbonStrokeWidth;
             }
 
             // make ribbon
@@ -261,7 +269,6 @@ var Ribbons = (function ( $, Kinetic, window ) {
                 onFinish: function() {
                     rect.remove();
                     rect.destroy();
-                    delete rect;
                     self._ribbonCount--;
                 }
             });
@@ -271,7 +278,9 @@ var Ribbons = (function ( $, Kinetic, window ) {
 
 
         startRibbons: function() {
-            if (this._ribbonsAreRunning) return;
+            if (this._ribbonsAreRunning) {
+                return;
+            }
             this._ribbonsAreRunning = true;
             $(this).trigger('ribbons:Started');
             var that = this;

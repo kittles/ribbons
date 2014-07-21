@@ -3,6 +3,9 @@ ribbons
 
 Ribbons stream across an element of your choosing!
 
+
+![example](http://i.imgur.com/lZ3qBgu.gif)
+
 ## Usage
 
 Initialize with:
